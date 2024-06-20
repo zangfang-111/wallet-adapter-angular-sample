@@ -1,0 +1,96 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/raw-wallet-adapter/src",
+  "prefix": "wa",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/raw-wallet-adapter",
+        "index": "apps/raw-wallet-adapter/src/index.html",
+        "main": "apps/raw-wallet-adapter/src/main.ts",
+        "polyfills": "apps/raw-wallet-adapter/src/polyfills.ts",
+        "tsConfig": "apps/raw-wallet-adapter/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/raw-wallet-adapter/src/favicon.ico",
+          "apps/raw-wallet-adapter/src/assets"
+        ],
+        "styles": ["apps/raw-wallet-adapter/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/raw-wallet-adapter/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/raw-wallet-adapter/src/environments/environment.ts",
+              "with": "apps/raw-wallet-adapter/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "raw-wallet-adapter:build:production"
+        },
+        "development": {
+          "browserTarget": "raw-wallet-adapter:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "raw-wallet-adapter:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/raw-wallet-adapter/**/*.ts",
+          "apps/raw-wallet-adapter/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/raw-wallet-adapter"],
+      "options": {
+        "jestConfig": "apps/raw-wallet-adapter/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
